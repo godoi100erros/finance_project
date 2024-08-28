@@ -1,4 +1,5 @@
 {% load widget_tweaks %}
+{% load humanize %}
         
        
 <!-- Define a grade de lançamentos -->
@@ -6,6 +7,35 @@
     id="transaction-container">
     <!-- 3/4 colunas para a tabela de lançamentos -->
         <div class="col-span-3">
+            <div class="my-4">  <!-- Cabeçalho com totais-->
+                <h1 class="mt-4 mb-6 prose prose-2x1 text-white">
+                    Totals
+                </h1>
+
+                <table class="table">
+                    <thead class="text-xs text-white uppercase">
+                        <tr>
+                            <th>Total de Receitas</th>
+                            <th>Total de Despesas</th>
+                            <th>RESULTADO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>${{ total_income|floatformat:2|intcomma }}</td>
+                            <td>${{ total_expenses|floatformat:2|intcomma }}</td>
+                            <td>${{ net_income|floatformat:2|intcomma }}</td>                                                        
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+
+
+            <h1 class="mt-8 mb-4 prose prose-2x1 text-white">
+                Lançamentos
+            </h1>
+
         {% if filter.qs %}
         <table class="table">
             <thead class="text-xs text-white uppercase">
@@ -44,11 +74,25 @@
                 hx-swap="outerHTML"
             >
 
-
+            <!--   FILTROS -->
             <div class="mb-2 form-control">
                 {{ filter.form.transaction_type|add_label_class:"label text-white" }}
                 {% render_field filter.form.transaction_type class="select bg-gray-50 text-gray-900" %}
             </div>
+
+            <div class="mb-2 form-control">
+                {{ filter.form.start_date|add_label_class:"label text-white" }}
+                {% render_field filter.form.start_date class="input bg-gray-50 text-gray-900" %}
+            </div>  
+            
+            <div class="mb-2 form-control">
+                {{ filter.form.end_date|add_label_class:"label text-white" }}
+                {% render_field filter.form.end_date class="input bg-gray-50 text-gray-900" %}
+            </div>                
+
+            <div class="mb-4 form-control">
+                {% render_field filter.form.category class="text-green-500 border-gray-300 rounded focus:ring-green-500" %}
+            </div> 
 
             <button class="btn btn-success">
                 Filtrar
