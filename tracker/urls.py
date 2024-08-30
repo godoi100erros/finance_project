@@ -12,6 +12,8 @@ urlpatterns = [
 
     path('get-transactions/', views.get_transactions, name='get-transactions'), 
 
-    path('get-transactions/charts', views.transaction_charts, name='transaction-charts'), 
+    path('transactions/charts', views.transaction_charts, name='transaction-charts'), 
+
+    path('transactions/export', views.export, name='export'), 
 ]
  
